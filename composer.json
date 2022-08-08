@@ -1,5 +1,5 @@
 {
-  "name": "underpin/integrations/wordpress",
+  "name": "underpin/wordpress-integration",
   "description": "Underpin WordPress integration",
   "type": "package",
   "license": "MIT",
