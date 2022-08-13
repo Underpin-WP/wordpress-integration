@@ -3,9 +3,9 @@
 namespace Underpin\WordPress\Exceptions;
 
 
-use Underpin\Exceptions\Exception;
+use Underpin\Exceptions\Operation_Failed;
 
-class Post_Delete_Canceled extends Exception {
+class Post_Delete_Canceled extends Operation_Failed {
 
 	public function __construct( $id, ?string $type = 'warning', array $data = [] ) {
 		parent::__construct(

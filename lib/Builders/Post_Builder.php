@@ -4,21 +4,23 @@ namespace Underpin\WordPress\Builders;
 
 use DateTime;
 use DateTimeZone;
-use Underpin\Exceptions\Invalid_Field;
 use Underpin\Helpers\Array_Helper;
-use Underpin\Helpers\Object_Helper;
-use Underpin\WordPress\Abstracts\Data_Object_Builder;
+use Underpin\Interfaces\Model_Item;
+use Underpin\WordPress\Abstracts\Model_Builder;
 use Underpin\WordPress\Custom_Post_Types\Post_Statuses;
 use Underpin\WordPress\Enums\Post_Types;
 use Underpin\WordPress\Enums\WP_Post_Fields;
 use UnitEnum;
 use WP_Post;
 
-class Post_Builder extends Data_Object_Builder {
+class Post_Builder extends Model_Builder {
 
 	protected array $args = [];
 
-	public function __construct( protected string $post_instance = WP_Post::class ) {
+	/**
+	 * @param class-string<Model_Item> $instance
+	 */
+	public function __construct( protected string $instance ) {
 	}
 
 	public function set_type( Post_Types|UnitEnum|string $type ): static {
@@ -155,21 +157,8 @@ class Post_Builder extends Data_Object_Builder {
 		return $this;
 	}
 
-	/**
-	 * @throws Invalid_Field
-	 */
-	public function to_instance(): WP_Post {
-		$instance = Object_Helper::make_class( [
-				'class' => $this->post_instance,
-				'args'  => $this->to_array(),
-			]
-		);
-
-		if ( $instance instanceof WP_Post ) {
-			return $instance;
-		} else {
-			throw new Invalid_Field( message: 'Post Instance must be an instance of WP_Post.', data: [ 'received' => $this->post_instance ] );
-		}
+	public function to_instance(): Model_Item {
+		return new $this->instance( new WP_Post( (object) $this->to_array() ) );
 	}
 
 	public function to_array(): array {

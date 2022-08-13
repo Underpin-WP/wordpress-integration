@@ -3,9 +3,9 @@
 namespace Underpin\WordPress\Abstracts;
 
 
+use Underpin\Abstracts\Builder;
 use Underpin\Interfaces\Can_Convert_To_Instance;
 use Underpin\WordPress\Enums\Relationships;
-use Underpin\WordPress\Interfaces\Clause_Query_Parameter;
 
 abstract class Clause_Builder extends Builder implements Can_Convert_To_Instance {
 

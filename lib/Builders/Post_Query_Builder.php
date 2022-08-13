@@ -2,10 +2,8 @@
 
 namespace Underpin\WordPress\Builders;
 
-use Underpin\Exceptions\Invalid_Field;
+use Underpin\Abstracts\Query_Builder;
 use Underpin\Helpers\Array_Helper;
-use Underpin\Helpers\Object_Helper;
-use Underpin\WordPress\Abstracts\Builder;
 use Underpin\WordPress\Custom_Post_Types\Post_Statuses;
 use Underpin\WordPress\Enums\Capabilities;
 use Underpin\WordPress\Enums\Compare;
@@ -17,10 +15,13 @@ use Underpin\WordPress\Enums\Roles;
 use UnitEnum;
 use WP_Query;
 
-class Post_Query_Builder extends Builder {
+class Post_Query_Builder extends Query_Builder {
 
 	protected array $args = [];
 
+	/**
+	 * @param class-string<WP_Query> $instance
+	 */
 	public function __construct( protected string $instance = WP_Query::class ) {
 	}
 
@@ -244,21 +245,12 @@ class Post_Query_Builder extends Builder {
 		return $this->set_string( 'fields', $fields->value );
 	}
 
-	/**
-	 * @throws Invalid_Field
-	 */
 	public function to_instance(): WP_Query {
-		$instance = Object_Helper::make_class( [
-				'class' => $this->instance,
-				'args'  => $this->to_array(),
-			]
-		);
+		return new $this->instance( ...$this->to_array() );
+	}
 
-		if ( $instance instanceof WP_Query ) {
-			return $instance;
-		} else {
-			throw new Invalid_Field( message: 'Query Instance must be an instance of WP_Query.', data: [ 'received' => $this->instance ] );
-		}
+	public function to_array(): array {
+		return $this->args;
 	}
 
 }
