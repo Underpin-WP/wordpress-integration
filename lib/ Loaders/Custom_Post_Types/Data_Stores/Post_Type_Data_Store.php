@@ -7,7 +7,6 @@ use Underpin\Exceptions\Operation_Failed;
 use Underpin\Factories\Log_Item;
 use Underpin\Interfaces\Can_Create;
 use Underpin\Interfaces\Can_Delete;
-use Underpin\Interfaces\Can_Trash;
 use Underpin\Interfaces\Can_Update;
 use Underpin\Interfaces\Model;
 use Underpin\Loaders\Logger;
@@ -16,7 +15,7 @@ use Underpin\WordPress\Exceptions\Post_Delete_Failed;
 use Underpin\WordPress\Interfaces\Can_Convert_To_WP_Post;
 use WP_Post;
 
-class Post_Type_Data_Store implements Can_Create, Can_Update, Can_Delete, Can_Trash {
+class Post_Type_Data_Store implements Can_Create, Can_Update, Can_Delete {
 
 	public function __construct( protected Can_Convert_To_WP_Post $adapter ) {
 
@@ -41,7 +40,7 @@ class Post_Type_Data_Store implements Can_Create, Can_Update, Can_Delete, Can_Tr
 	}
 
 	public function delete( int|string $id ): bool {
-		$deleted = wp_delete_post( $id, true );
+		$deleted = wp_delete_post( $id );
 
 		// Delete can literally return anything, so we have to be explicit here.
 		if ( ! ( $deleted instanceof WP_Post && $id === $deleted->ID ) ) {
@@ -60,9 +59,4 @@ class Post_Type_Data_Store implements Can_Create, Can_Update, Can_Delete, Can_Tr
 
 		return true;
 	}
-
-	public function trash( int|string $id ) {
-		wp_delete_post( $id );
-	}
-
 }
