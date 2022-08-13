@@ -10,14 +10,17 @@ use Underpin\Interfaces\Can_Delete;
 use Underpin\Interfaces\Can_Update;
 use Underpin\Interfaces\Model;
 use Underpin\Loaders\Logger;
+use Underpin\WordPress\Abstracts\Model_To_WP_Post_Adapter;
 use Underpin\WordPress\Exceptions\Post_Delete_Canceled;
 use Underpin\WordPress\Exceptions\Post_Delete_Failed;
-use Underpin\WordPress\Interfaces\Can_Convert_To_WP_Post;
 use WP_Post;
 
 class Post_Type_Data_Store implements Can_Create, Can_Update, Can_Delete {
 
-	public function __construct( protected Can_Convert_To_WP_Post $adapter ) {
+	/**
+	 * @param class-string<Model_To_WP_Post_Adapter> $adapter
+	 */
+	public function __construct( protected string $adapter ) {
 
 	}
 
@@ -27,7 +30,7 @@ class Post_Type_Data_Store implements Can_Create, Can_Update, Can_Delete {
 
 	public function update( Model $model ): int|string {
 		try {
-			$response = wp_insert_post( $this->adapter->to_wp_post()->to_array(), true );
+			$response = wp_insert_post( ( new $this->adapter( $model ) )->to_wp_post()->to_array(), true );
 
 			if ( is_wp_error( $response ) ) {
 				throw new Operation_Failed( $response->get_error_message() );
@@ -59,4 +62,5 @@ class Post_Type_Data_Store implements Can_Create, Can_Update, Can_Delete {
 
 		return true;
 	}
+
 }
