@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin\WordPress\Meta;
+namespace Underpin\WordPress\Integrations\Meta;
 
 
 use Underpin\Exceptions\Invalid_Registry_Item;
