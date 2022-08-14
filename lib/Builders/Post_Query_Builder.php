@@ -1,17 +1,17 @@
 <?php
 
-namespace Underpin\WordPress\Builders;
+namespace Underpin_WordPress\Builders;
 
 use Underpin\Abstracts\Query_Builder;
 use Underpin\Helpers\Array_Helper;
-use Underpin\WordPress\Custom_Post_Types\Post_Statuses;
-use Underpin\WordPress\Enums\Capabilities;
-use Underpin\WordPress\Enums\Compare;
-use Underpin\WordPress\Enums\Order;
-use Underpin\WordPress\Enums\Order_By;
-use Underpin\WordPress\Enums\Post_Types;
-use Underpin\WordPress\Enums\Query_Return_Fields;
-use Underpin\WordPress\Enums\Roles;
+use Underpin_WordPress\Custom_Post_Types\Post_Statuses;
+use Underpin_WordPress\Enums\Capabilities;
+use Underpin_WordPress\Enums\Compare;
+use Underpin_WordPress\Enums\Order;
+use Underpin_WordPress\Enums\Order_By;
+use Underpin_WordPress\Enums\Post_Types;
+use Underpin_WordPress\Enums\Query_Return_Fields;
+use Underpin_WordPress\Enums\Roles;
 use UnitEnum;
 use WP_Query;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Underpin\WordPress\Builders;
+namespace Underpin_WordPress\Builders;
 
 use Underpin\Exceptions\Invalid_Field;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Helpers\Object_Helper;
-use Underpin\WordPress\Abstracts\Clause_Builder;
+use Underpin_WordPress\Abstracts\Clause_Builder;
 use WP_Meta_Query;
 
 class Meta_Query_Builder extends Clause_Builder {

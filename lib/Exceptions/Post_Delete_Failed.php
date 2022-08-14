@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin\WordPress\Exceptions;
+namespace Underpin_WordPress\Exceptions;
 
 
 use Underpin\Exceptions\Operation_Failed;

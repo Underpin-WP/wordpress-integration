@@ -1,13 +1,13 @@
 <?php
 
-namespace Underpin\WordPress\Builders;
+namespace Underpin_WordPress\Builders;
 
 use Underpin\Helpers\Array_Helper;
-use Underpin\WordPress\Abstracts\Builder;
-use Underpin\WordPress\Enums\Compare;
-use Underpin\WordPress\Enums\Database_Operator;
-use Underpin\WordPress\Enums\Date_Query_Columns;
-use Underpin\WordPress\Interfaces\Clause_Query_Parameter;
+use Underpin_WordPress\Abstracts\Builder;
+use Underpin_WordPress\Enums\Compare;
+use Underpin_WordPress\Enums\Database_Operator;
+use Underpin_WordPress\Enums\Date_Query_Columns;
+use Underpin_WordPress\Interfaces\Clause_Query_Parameter;
 use UnitEnum;
 
 class Date_Query_Parameter extends Builder implements Clause_Query_Parameter {

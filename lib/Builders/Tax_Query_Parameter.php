@@ -1,11 +1,11 @@
 <?php
 
-namespace Underpin\WordPress\Builders;
+namespace Underpin_WordPress\Builders;
 
 
-use Underpin\WordPress\Abstracts\Builder;
-use Underpin\WordPress\Enums\Database_Operator;
-use Underpin\WordPress\Enums\Tax_Query_fields;
+use Underpin_WordPress\Abstracts\Builder;
+use Underpin_WordPress\Enums\Database_Operator;
+use Underpin_WordPress\Enums\Tax_Query_fields;
 
 class Tax_Query_Parameter extends Builder {
 

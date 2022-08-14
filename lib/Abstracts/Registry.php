@@ -8,7 +8,7 @@
  */
 
 
-namespace Underpin\WordPress\Abstracts;
+namespace Underpin_WordPress\Abstracts;
 
 use Underpin\Exceptions\Invalid_Registry_Item;
 use Underpin\Exceptions\Unknown_Registry_Item;

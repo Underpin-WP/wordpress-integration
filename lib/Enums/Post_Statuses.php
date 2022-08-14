@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin\WordPress\Custom_Post_Types;
+namespace Underpin_WordPress\Custom_Post_Types;
 
 
 enum Post_Statuses {

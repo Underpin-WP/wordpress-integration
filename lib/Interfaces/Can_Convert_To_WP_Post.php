@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin\WordPress\Interfaces;
+namespace Underpin_WordPress\Interfaces;
 
 use WP_Post;
 

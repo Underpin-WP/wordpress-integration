@@ -1,13 +1,13 @@
 <?php
 
-namespace Underpin\WordPress\Meta;
+namespace Underpin_WordPress\Meta;
 
 
 use Underpin\Helpers\Array_Helper;
 use Underpin\Interfaces\Feature_Extension;
-use Underpin\WordPress\Enums\Meta_Types;
-use Underpin\WordPress\Enums\Types;
-use Underpin\WordPress\Interfaces\Loader_Item;
+use Underpin_WordPress\Enums\Meta_Types;
+use Underpin_WordPress\Enums\Types;
+use Underpin_WordPress\Interfaces\Loader_Item;
 use UnitEnum;
 //TODO: YOU WERE HERE. YOU WERE ADDING ALL OF THE LOADERS. THIS REQUIRES A LOADER ITEM, A LOADER, AND A WITH_* INTERFACE.
 abstract class Item implements Loader_Item, Feature_Extension {

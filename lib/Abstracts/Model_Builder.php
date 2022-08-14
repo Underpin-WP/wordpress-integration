@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin\WordPress\Abstracts;
+namespace Underpin_WordPress\Abstracts;
 
 
 use Underpin\Abstracts\Builder;

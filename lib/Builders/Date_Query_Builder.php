@@ -1,14 +1,14 @@
 <?php
 
-namespace Underpin\WordPress\Builders;
+namespace Underpin_WordPress\Builders;
 
 use Underpin\Exceptions\Invalid_Field;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Helpers\Object_Helper;
-use Underpin\WordPress\Abstracts\Clause_Builder;
-use Underpin\WordPress\Enums\Compare;
-use Underpin\WordPress\Enums\Database_Operator;
-use Underpin\WordPress\Enums\Date_Query_Columns;
+use Underpin_WordPress\Abstracts\Clause_Builder;
+use Underpin_WordPress\Enums\Compare;
+use Underpin_WordPress\Enums\Database_Operator;
+use Underpin_WordPress\Enums\Date_Query_Columns;
 use UnitEnum;
 use WP_Date_Query;
 

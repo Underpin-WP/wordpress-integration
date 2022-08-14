@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin\WordPress\Enums;
+namespace Underpin_WordPress\Enums;
 
 
 enum WP_Post_Fields: string {

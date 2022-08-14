@@ -11,7 +11,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Underpin\\WordPress\\": "lib/"
+      "Underpin_WordPress\\": "lib/"
     }
   },
   "autoload-dev": {

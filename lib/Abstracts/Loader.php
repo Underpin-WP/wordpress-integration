@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin\WordPress\Abstracts;
+namespace Underpin_WordPress\Abstracts;
 
 
 use Underpin\Exceptions\Invalid_Registry_Item;
@@ -9,7 +9,7 @@ use Underpin\Factories\Object_Registry;
 use Underpin\Helpers\Processors\Array_Processor;
 use Underpin\Helpers\Processors\List_Filter;
 use Underpin\Interfaces\Queryable;
-use Underpin\WordPress\Interfaces\Loader_Item;
+use Underpin_WordPress\Interfaces\Loader_Item;
 
 abstract class Loader implements Queryable {
 

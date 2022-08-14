@@ -1,13 +1,13 @@
 <?php
 
-namespace Underpin\WordPress\Loaders\Custom_Post_Types;
+namespace Underpin_WordPress\Loaders\Custom_Post_Types;
 
 use Underpin\Factories\Log_Item;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Interfaces\Feature_Extension;
 use Underpin\Loaders\Logger;
-use Underpin\WordPress\Exceptions\WP_Error;
-use Underpin\WordPress\Interfaces\Loader_Item;
+use Underpin_WordPress\Exceptions\WP_Error;
+use Underpin_WordPress\Interfaces\Loader_Item;
 
 abstract class Item implements Feature_Extension, Loader_Item {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin\WordPress\Loaders\Custom_Post_Types\Data_Stores;
+namespace Underpin_WordPress\Loaders\Custom_Post_Types\Data_Stores;
 
 use Underpin\Exceptions\Exception;
 use Underpin\Exceptions\Operation_Failed;
@@ -10,9 +10,9 @@ use Underpin\Interfaces\Can_Delete;
 use Underpin\Interfaces\Can_Update;
 use Underpin\Interfaces\Model;
 use Underpin\Loaders\Logger;
-use Underpin\WordPress\Abstracts\Model_To_WP_Post_Adapter;
-use Underpin\WordPress\Exceptions\Post_Delete_Canceled;
-use Underpin\WordPress\Exceptions\Post_Delete_Failed;
+use Underpin_WordPress\Abstracts\Model_To_WP_Post_Adapter;
+use Underpin_WordPress\Exceptions\Post_Delete_Canceled;
+use Underpin_WordPress\Exceptions\Post_Delete_Failed;
 use WP_Post;
 
 class Post_Type_Data_Store implements Can_Create, Can_Update, Can_Delete {
