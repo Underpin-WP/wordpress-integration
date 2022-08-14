@@ -6,6 +6,7 @@ namespace Underpin\WordPress\Abstracts;
 use Underpin\Exceptions\Invalid_Registry_Item;
 use Underpin\Exceptions\Unknown_Registry_Item;
 use Underpin\Factories\Object_Registry;
+use Underpin\Helpers\Array_Helper;
 use Underpin\Helpers\Processors\Array_Processor;
 use Underpin\Helpers\Processors\List_Filter;
 use Underpin\Interfaces\Queryable;
@@ -21,7 +22,7 @@ abstract class Loader implements Queryable {
 	 */
 	public function __construct( $abstraction_class, Loader_Item ...$post_type ) {
 		$this->registry = new Object_Registry( $abstraction_class );
-		foreach ( func_get_args() as $post_type ) {
+		foreach ( Array_Helper::after(func_get_args(), 1) as $post_type ) {
 			/* @var Loader_Item $post_type */
 			$this->registry->add( $post_type->get_id(), $post_type );
 		}
