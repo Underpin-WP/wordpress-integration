@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin\WordPress\Loaders\Custom_Post_Types\Data_Stores;
+namespace Underpin\WordPress\Integrations\Custom_Post_Types\Data_Stores;
 
 use Underpin\Exceptions\Exception;
 use Underpin\Exceptions\Operation_Failed;

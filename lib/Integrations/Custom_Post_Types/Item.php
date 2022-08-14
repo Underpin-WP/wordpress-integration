@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin\WordPress\Loaders\Custom_Post_Types;
+namespace Underpin\WordPress\Integrations\Custom_Post_Types;
 
 use Underpin\Factories\Log_Item;
 use Underpin\Helpers\Array_Helper;

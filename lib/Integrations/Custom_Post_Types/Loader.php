@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin\WordPress\Loaders\Custom_Post_Types;
+namespace Underpin\WordPress\Integrations\Custom_Post_Types;
 
 use Underpin\Exceptions\Invalid_Registry_Item;
 use Underpin\Exceptions\Unknown_Registry_Item;
