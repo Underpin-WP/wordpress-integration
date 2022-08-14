@@ -16,7 +16,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Underpin\\WordPress\\Tests\\": "tests/"
+      "Underpin_WordPress\\Tests\\": "tests/"
     }
   },
   "require": {
