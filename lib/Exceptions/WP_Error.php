@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin_WordPress\Exceptions;
+namespace Underpin\WordPress\Exceptions;
 
 
 use Underpin\Exceptions\Exception;

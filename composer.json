@@ -11,12 +11,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "Underpin_WordPress\\": "lib/"
+      "Underpin\\WordPress\\": "lib/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Underpin_WordPress\\Tests\\": "tests/"
+      "Underpin\\WordPress\\Tests\\": "tests/"
     }
   },
   "require": {

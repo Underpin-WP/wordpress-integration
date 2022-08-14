@@ -1,11 +1,11 @@
 <?php
 
-namespace Underpin_WordPress\Abstracts;
+namespace Underpin\WordPress\Abstracts;
 
 
 use Underpin\Abstracts\Builder;
 use Underpin\Interfaces\Can_Convert_To_Instance;
-use Underpin_WordPress\Enums\Relationships;
+use Underpin\WordPress\Enums\Relationships;
 
 abstract class Clause_Builder extends Builder implements Can_Convert_To_Instance {
 

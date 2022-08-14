@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin_WordPress\Factories;
+namespace Underpin\WordPress\Factories;
 
 
 use Underpin\Helpers\Array_Helper;

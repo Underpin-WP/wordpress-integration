@@ -1,11 +1,11 @@
 <?php
 
-namespace Underpin_WordPress\Builders;
+namespace Underpin\WordPress\Builders;
 
 use Underpin\Exceptions\Invalid_Field;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Helpers\Object_Helper;
-use Underpin_WordPress\Abstracts\Clause_Builder;
+use Underpin\WordPress\Abstracts\Clause_Builder;
 use WP_Tax_Query;
 
 class Tax_Query_Builder extends Clause_Builder {

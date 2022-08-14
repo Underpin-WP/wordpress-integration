@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin_WordPress\Enums;
+namespace Underpin\WordPress\Enums;
 
 
 enum Types {

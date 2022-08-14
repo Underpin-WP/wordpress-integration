@@ -1,12 +1,12 @@
 <?php
 
-namespace Underpin_WordPress\Loaders\Custom_Post_Types;
+namespace Underpin\WordPress\Loaders\Custom_Post_Types;
 
 use Underpin\Exceptions\Invalid_Registry_Item;
 use Underpin\Exceptions\Unknown_Registry_Item;
 use Underpin\Factories\Object_Registry;
 
-abstract class Loader extends \Underpin_WordPress\Abstracts\Loader {
+abstract class Loader extends \Underpin\WordPress\Abstracts\Loader {
 
 	/**
 	 * @throws Unknown_Registry_Item

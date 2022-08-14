@@ -1,9 +1,9 @@
 <?php
 
-namespace Underpin_WordPress\Interfaces;
+namespace Underpin\WordPress\Interfaces;
 
 
-use Underpin_WordPress\Meta\Loader;
+use Underpin\WordPress\Meta\Loader;
 
 interface With_Meta {
 

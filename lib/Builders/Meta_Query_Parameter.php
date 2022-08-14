@@ -1,11 +1,11 @@
 <?php
 
-namespace Underpin_WordPress\Builders;
+namespace Underpin\WordPress\Builders;
 
-use Underpin_WordPress\Abstracts\Builder;
-use Underpin_WordPress\Enums\Compare;
-use Underpin_WordPress\Enums\Database_Operator;
-use Underpin_WordPress\Enums\Database_Type;
+use Underpin\WordPress\Abstracts\Builder;
+use Underpin\WordPress\Enums\Compare;
+use Underpin\WordPress\Enums\Database_Operator;
+use Underpin\WordPress\Enums\Database_Type;
 
 class Meta_Query_Parameter extends Builder {
 

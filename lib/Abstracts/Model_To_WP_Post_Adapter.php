@@ -1,9 +1,9 @@
 <?php
 
-namespace Underpin_WordPress\Abstracts;
+namespace Underpin\WordPress\Abstracts;
 
 use Underpin\Interfaces\Model;
-use Underpin_WordPress\Interfaces\Can_Convert_To_WP_Post;
+use Underpin\WordPress\Interfaces\Can_Convert_To_WP_Post;
 
 abstract class Model_To_WP_Post_Adapter implements Can_Convert_To_WP_Post {
 

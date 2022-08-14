@@ -1,15 +1,15 @@
 <?php
 
-namespace Underpin_WordPress\Builders;
+namespace Underpin\WordPress\Builders;
 
 use DateTime;
 use DateTimeZone;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Interfaces\Model_Item;
-use Underpin_WordPress\Abstracts\Model_Builder;
-use Underpin_WordPress\Custom_Post_Types\Post_Statuses;
-use Underpin_WordPress\Enums\Post_Types;
-use Underpin_WordPress\Enums\WP_Post_Fields;
+use Underpin\WordPress\Abstracts\Model_Builder;
+use Underpin\WordPress\Custom_Post_Types\Post_Statuses;
+use Underpin\WordPress\Enums\Post_Types;
+use Underpin\WordPress\Enums\WP_Post_Fields;
 use UnitEnum;
 use WP_Post;
 
