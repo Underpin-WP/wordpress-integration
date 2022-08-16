@@ -2,12 +2,13 @@
 
 namespace Underpin\WordPress\Builders;
 
-use Underpin\WordPress\Abstracts\Builder;
+use Underpin\WordPress\Abstracts\Clause_Builder;
 use Underpin\WordPress\Enums\Compare;
 use Underpin\WordPress\Enums\Database_Operator;
 use Underpin\WordPress\Enums\Database_Type;
+use WP_Meta_Query;
 
-class Meta_Query_Parameter extends Builder {
+class Meta_Query_Parameter extends Clause_Builder {
 
 	public function set_keys( string ...$keys ): static {
 		return $this->set_varidic( 'key', 'key', $keys );
@@ -37,4 +38,7 @@ class Meta_Query_Parameter extends Builder {
 		return $this->args;
 	}
 
+	public function to_instance(): WP_Meta_Query {
+		return new WP_Meta_Query($this->to_array());
+	}
 }

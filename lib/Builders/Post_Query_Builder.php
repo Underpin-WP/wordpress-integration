@@ -2,8 +2,10 @@
 
 namespace Underpin\WordPress\Builders;
 
+use Underpin\Abstracts\Builder;
 use Underpin\Abstracts\Query_Builder;
 use Underpin\Helpers\Array_Helper;
+use Underpin\Interfaces\Can_Convert_To_Instance;
 use Underpin\WordPress\Custom_Post_Types\Post_Statuses;
 use Underpin\WordPress\Enums\Capabilities;
 use Underpin\WordPress\Enums\Compare;
@@ -15,7 +17,7 @@ use Underpin\WordPress\Enums\Roles;
 use UnitEnum;
 use WP_Query;
 
-class Post_Query_Builder extends Query_Builder {
+class Post_Query_Builder extends Builder implements Can_Convert_To_Instance {
 
 	protected array $args = [];
 
@@ -190,7 +192,7 @@ class Post_Query_Builder extends Query_Builder {
 	}
 
 	public function set_type( Post_Types|UnitEnum|string ...$types ): static {
-		return $this->set_array( 'type', Array_Helper::map( $types, fn ( $item ) => is_string( $item ) ? $item : $item->name ) );
+		return $this->set_array( 'post_type', Array_Helper::map( $types, fn ( $item ) => is_string( $item ) ? $item : $item->name ) );
 	}
 
 	public function set_category_name( string $slug ): static {
@@ -226,7 +228,9 @@ class Post_Query_Builder extends Query_Builder {
 	}
 
 	public function set_meta_query( Meta_Query_Builder $builder ): static {
-		return $this->set_array( 'meta_query', $builder->to_array() );
+		$this->args['meta_query'] = $builder->to_instance();
+
+		return $this;
 	}
 
 	public function set_menu_order( int $order ): static {
@@ -246,7 +250,7 @@ class Post_Query_Builder extends Query_Builder {
 	}
 
 	public function to_instance(): WP_Query {
-		return new $this->instance( ...$this->to_array() );
+		return new $this->instance( $this->to_array() );
 	}
 
 	public function to_array(): array {
