@@ -9,7 +9,7 @@ use Underpin\Loaders\Logger;
 use Underpin\WordPress\Exceptions\WP_Error;
 use Underpin\WordPress\Interfaces\Loader_Item;
 
-abstract class Item implements Feature_Extension, Loader_Item {
+class Item implements Feature_Extension, Loader_Item {
 
 	/**
 	 * The post type args.
