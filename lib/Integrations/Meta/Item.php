@@ -3,9 +3,11 @@
 namespace Underpin\WordPress\Integrations\Meta;
 
 
+use Closure;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Interfaces\Feature_Extension;
 use Underpin\WordPress\Enums\Meta_Types;
+use Underpin\WordPress\Enums\Types;
 use Underpin\WordPress\Interfaces\Loader_Item;
 use UnitEnum;
 
@@ -14,14 +16,28 @@ abstract class Item implements Loader_Item, Feature_Extension {
 	protected string $key;
 	protected string $object_type;
 
+	/**
+	 * @param string                     $id
+	 * @param mixed                      $default_value
+	 * @param Meta_Types|UnitEnum|string $object_type
+	 * @param Types                      $type
+	 * @param string|null                $description
+	 * @param bool|null                  $single
+	 * @param bool|null                  $show_in_rest
+	 * @param string|null                $subtype
+	 * @param Closure|null               $sanitize_callback
+	 * @param string|null                $key
+	 */
 	public function __construct(
 		protected string           $id,
 		protected mixed            $default_value,
 		Meta_Types|UnitEnum|string $object_type,
+		protected Types            $type,
 		protected ?string          $description = null,
 		protected ?bool            $single = null,
 		protected ?bool            $show_in_rest = null,
 		protected ?string          $subtype = null,
+		protected ?Closure         $sanitize_callback = null,
 		?string                    $key = null,
 	) {
 		$this->object_type = is_string( $object_type ) ? $object_type : $object_type->name;
@@ -30,7 +46,9 @@ abstract class Item implements Loader_Item, Feature_Extension {
 
 	abstract public function has_permission( bool $allowed, string $meta_key, int $object_id, int $user_id, string $cap, array $caps ): bool;
 
-	abstract public function sanitize( mixed $meta_value, string $meta_key, string $object_type );
+	public function get_type(): string {
+		return $this->type->name;
+	}
 
 	public function get_subtype(): string {
 		return $this->subtype;
@@ -83,7 +101,7 @@ abstract class Item implements Loader_Item, Feature_Extension {
 			'description'       => $this->get_description(),
 			'single'            => $this->get_single(),
 			'default'           => $this->get_default_value(),
-			'sanitize_callback' => [ $this, 'sanitize' ],
+			'sanitize_callback' => is_callable( $this->sanitize_callback ) ? [ $this, 'sanitize_callback' ] : null,
 			'auth_callback'     => [ $this, 'has_permission' ],
 			'show_in_rest'      => $this->get_show_in_rest(),
 		] ) );

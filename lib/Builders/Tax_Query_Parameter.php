@@ -3,11 +3,11 @@
 namespace Underpin\WordPress\Builders;
 
 
-use Underpin\WordPress\Abstracts\Builder;
+use Underpin\WordPress\Abstracts\Clause_Builder;
 use Underpin\WordPress\Enums\Database_Operator;
 use Underpin\WordPress\Enums\Tax_Query_fields;
 
-class Tax_Query_Parameter extends Builder {
+class Tax_Query_Parameter extends Clause_Builder {
 
 	public function set_taxonomy( string $taxonomy ): static {
 		return $this->set_string( 'taxonomy', $taxonomy );

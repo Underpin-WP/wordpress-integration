@@ -2,13 +2,14 @@
 
 namespace Underpin\WordPress\Builders;
 
+use Underpin\Interfaces\Can_Convert_To_Instance;
 use Underpin\WordPress\Abstracts\Clause_Builder;
 use Underpin\WordPress\Enums\Compare;
 use Underpin\WordPress\Enums\Database_Operator;
 use Underpin\WordPress\Enums\Database_Type;
 use WP_Meta_Query;
 
-class Meta_Query_Parameter extends Clause_Builder {
+class Meta_Query_Parameter extends Clause_Builder implements Can_Convert_To_Instance {
 
 	public function set_keys( string ...$keys ): static {
 		return $this->set_varidic( 'key', 'key', $keys );

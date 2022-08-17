@@ -7,7 +7,7 @@ use Underpin\Abstracts\Builder;
 use Underpin\Interfaces\Can_Convert_To_Instance;
 use Underpin\WordPress\Enums\Relationships;
 
-abstract class Clause_Builder extends Builder implements Can_Convert_To_Instance {
+abstract class Clause_Builder extends Builder {
 
 	protected array $clauses = [];
 
