@@ -8,15 +8,20 @@ use Underpin\Helpers\Array_Helper;
 use Underpin\Interfaces\Feature_Extension;
 use Underpin\WordPress\Interfaces\Loader_Item;
 
-abstract class Item implements Loader_Item, Feature_Extension {
+class Item implements Loader_Item, Feature_Extension {
 
 	public function __construct(
+		protected string $id,
 		public readonly string       $object_type,
 		public readonly string       $name,
 		public readonly Closure|null $get_callback = null,
 		public readonly Closure|null $update_callback = null,
 		public readonly ?array       $schema = null
 	) {
+	}
+
+	public function get_id(): string {
+		return $this->id;
 	}
 
 	/**
