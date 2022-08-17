@@ -228,7 +228,7 @@ class Post_Query_Builder extends Builder implements Can_Convert_To_Instance {
 	}
 
 	public function set_meta_query( Meta_Query_Builder $builder ): static {
-		$this->args['meta_query'] = $builder->to_instance();
+		$this->args['meta_query'] = $builder->to_array();
 
 		return $this;
 	}
