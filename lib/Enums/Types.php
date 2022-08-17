@@ -8,7 +8,7 @@ enum Types {
 	case string;
 	case boolean;
 	case integer;
-	case number;
+	case float;
 	case array;
 	case object;
 

@@ -18,7 +18,7 @@ class Meta_Query_Builder extends Clause_Builder {
 	public function set_parameters( Meta_Query_Parameter ...$parameters ): static {
 		$parameters = Array_Helper::map( $parameters, fn ( Meta_Query_Parameter $parameter ) => $parameter->to_array() );
 
-		$this->args['parameters'] = Array_Helper::merge( $this->args['parameters'] ?? [], $parameters );
+		$this->args = Array_Helper::merge( $this->args ?? [], $parameters );
 
 		return $this;
 	}
