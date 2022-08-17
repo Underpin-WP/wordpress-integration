@@ -17,7 +17,7 @@ abstract class Item implements Loader_Item, Feature_Extension {
 
 	public function __construct(
 		protected string           $id,
-		protected string           $default_value,
+		protected mixed            $default_value,
 		Meta_Types|UnitEnum|string $object_type,
 		protected Types            $type,
 		protected ?string          $description = null,
