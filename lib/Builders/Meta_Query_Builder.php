@@ -23,21 +23,4 @@ class Meta_Query_Builder extends Clause_Builder {
 		return $this;
 	}
 
-	/**
-	 * @throws Invalid_Field
-	 */
-	public function to_instance(): WP_Meta_Query {
-		$instance = Object_Helper::make_class( [
-				'class' => $this->instance,
-				'args'  => $this->to_array(),
-			]
-		);
-
-		if ( $instance instanceof WP_Meta_Query ) {
-			return $instance;
-		} else {
-			throw new Invalid_Field( message: 'Instance must be an instance of WP_Meta_Query.', data: [ 'received' => $this->instance ] );
-		}
-	}
-
 }
