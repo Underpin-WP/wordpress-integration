@@ -9,7 +9,7 @@ use Underpin\WordPress\Enums\Meta_Types;
 use Underpin\WordPress\Enums\Types;
 use Underpin\WordPress\Interfaces\Loader_Item;
 use UnitEnum;
-//TODO: YOU WERE HERE. YOU WERE ADDING ALL OF THE LOADERS. THIS REQUIRES A LOADER ITEM, A LOADER, AND A WITH_* INTERFACE.
+
 abstract class Item implements Loader_Item, Feature_Extension {
 
 	protected string $key;
@@ -30,11 +30,9 @@ abstract class Item implements Loader_Item, Feature_Extension {
 		if ( ! $key ) $this->key = $id;
 	}
 
-	public function has_permission( bool $allowed, string $meta_key, int $object_id, int $user_id, string $cap, array $caps ): bool {
-		return $allowed;
-	}
+	abstract public function has_permission( bool $allowed, string $meta_key, int $object_id, int $user_id, string $cap, array $caps ): bool;
 
-	abstract public function sanitize( string $meta_value, string $meta_key, string $object_type );
+	abstract public function sanitize( mixed $meta_value, string $meta_key, string $object_type );
 
 	public function get_subtype(): string {
 		return $this->subtype;
@@ -70,84 +68,6 @@ abstract class Item implements Loader_Item, Feature_Extension {
 
 	public function get_object_type(): string {
 		return $this->object_type;
-	}
-
-	/**
-	 * Adds the metadata.
-	 *
-	 * @since 1.1.1
-	 *
-	 * @param int  $object_id
-	 * @param bool $unique
-	 *
-	 * @return bool
-	 */
-	public function add( int $object_id, bool $unique = false ): bool {
-		return add_metadata( $this->get_object_type(), $object_id, $this->get_key(), $this->get_default_value(), $unique );
-	}
-
-	/**
-	 * Retrieves the record.
-	 *
-	 * @since 1.1.1
-	 *
-	 * @param int  $object_id   ID of the object metadata is for.
-	 * @param bool $single      Optional. If true, return only the first value of the specified meta_key.
-	 *                          This parameter has no effect if meta_key is not specified. Default false.
-	 *
-	 * @return mixed|void
-	 */
-	public function get( int $object_id, bool $single = false ) {
-		return get_metadata( $this->get_object_type(), $object_id, $this->get_key(), $single );
-	}
-
-	/**
-	 * Updates the record to the specified value.
-	 *
-	 * @since 1.1.1
-	 *
-	 * @param int          $object_id  ID of the object metadata is for.
-	 * @param mixed        $value      Metadata value. Must be serializable if non-scalar.
-	 * @param mixed|string $prev_value Optional. Previous value to check before updating.
-	 *                           If specified, only update existing metadata entries with
-	 *                           this value. Otherwise, update all entries. Default empty.
-	 *
-	 * @return bool True if updated, otherwise false
-	 */
-	public function update( int $object_id, mixed $value, mixed $prev_value = '' ): bool {
-		return update_metadata( $this->get_object_type(), $object_id, $this->get_key(), $value, $prev_value );
-	}
-
-	/**
-	 * Deletes the record.
-	 *
-	 * @since 1.1.1
-	 *
-	 * @param int          $object_id ID of the object metadata is for.
-	 * @param mixed|string $value     Optional. Metadata value. Must be serializable if non-scalar.
-	 *                           If specified, only delete metadata entries with this value.
-	 *                           Otherwise, delete all entries with the specified meta_key.
-	 *                           Pass `null`, `false`, or an empty string to skip this check.
-	 *                           (For backward compatibility, it is not possible to pass an empty string
-	 *                           to delete those entries with an empty string for a value.)
-	 *
-	 * @return bool
-	 */
-	public function delete( int $object_id, mixed $value = '' ): bool {
-		return delete_metadata( $this->get_object_type(), $object_id, $this->get_key(), $value );
-	}
-
-	/**
-	 * Resets the record to the default value.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param int $object_id ID of the object metadata is for.
-	 *
-	 * @return bool
-	 */
-	public function reset( int $object_id ): bool {
-		return $this->update( $object_id, $this->get_default_value() );
 	}
 
 	/**
