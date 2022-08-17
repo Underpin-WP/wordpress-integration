@@ -46,6 +46,10 @@ abstract class Item implements Loader_Item, Feature_Extension {
 
 	abstract public function has_permission( bool $allowed, string $meta_key, int $object_id, int $user_id, string $cap, array $caps ): bool;
 
+	public function get_id(): string|int {
+		return $this->id;
+	}
+
 	/**
 	 * @inheritDoc
 	 */
