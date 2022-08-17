@@ -13,8 +13,8 @@ use UnitEnum;
 
 abstract class Item implements Loader_Item, Feature_Extension {
 
-	protected string $key;
-	protected string $object_type;
+	public readonly string $key;
+	public readonly string $object_type;
 
 	/**
 	 * @param string                     $id
@@ -29,15 +29,15 @@ abstract class Item implements Loader_Item, Feature_Extension {
 	 * @param string|null                $key
 	 */
 	public function __construct(
-		protected string           $id,
-		protected mixed            $default_value,
+		public readonly string           $id,
+		public readonly mixed            $default_value,
 		Meta_Types|UnitEnum|string $object_type,
-		protected Types            $type,
-		protected ?string          $description = null,
-		protected ?bool            $single = null,
-		protected ?bool            $show_in_rest = null,
-		protected ?string          $subtype = null,
-		protected ?Closure         $sanitize_callback = null,
+		public readonly Types            $type,
+		public readonly ?string          $description = null,
+		public readonly ?bool            $single = null,
+		public readonly ?bool            $show_in_rest = null,
+		public readonly ?string          $subtype = null,
+		public readonly ?Closure         $sanitize_callback = null,
 		?string                    $key = null,
 	) {
 		$this->object_type = is_string( $object_type ) ? $object_type : $object_type->name;
@@ -45,42 +45,6 @@ abstract class Item implements Loader_Item, Feature_Extension {
 	}
 
 	abstract public function has_permission( bool $allowed, string $meta_key, int $object_id, int $user_id, string $cap, array $caps ): bool;
-
-	public function get_type(): string {
-		return $this->type->name;
-	}
-
-	public function get_subtype(): string {
-		return $this->subtype;
-	}
-
-	public function get_description(): string {
-		return $this->description;
-	}
-
-	public function get_single(): bool {
-		return $this->single;
-	}
-
-	public function get_default_value(): string {
-		return $this->default_value;
-	}
-
-	public function get_key(): string {
-		return $this->key;
-	}
-
-	public function get_id(): string {
-		return $this->id;
-	}
-
-	public function get_show_in_rest(): bool {
-		return $this->show_in_rest;
-	}
-
-	public function get_object_type(): string {
-		return $this->object_type;
-	}
 
 	/**
 	 * @inheritDoc
@@ -95,15 +59,15 @@ abstract class Item implements Loader_Item, Feature_Extension {
 	 * @since 1.0.0
 	 */
 	public function register_meta() {
-		register_meta( $this->get_object_type(), $this->get_key(), Array_Helper::where_not_null( [
-			'object_subtype'    => $this->get_subtype(),
-			'type'              => $this->get_type(),
-			'description'       => $this->get_description(),
-			'single'            => $this->get_single(),
-			'default'           => $this->get_default_value(),
+		register_meta( $this->object_type, $this->key, Array_Helper::where_not_null( [
+			'object_subtype'    => $this->subtype,
+			'type'              => $this->type,
+			'description'       => $this->description,
+			'single'            => $this->single,
+			'default'           => $this->default_value,
 			'sanitize_callback' => is_callable( $this->sanitize_callback ) ? [ $this, 'sanitize_callback' ] : null,
 			'auth_callback'     => [ $this, 'has_permission' ],
-			'show_in_rest'      => $this->get_show_in_rest(),
+			'show_in_rest'      => $this->show_in_rest,
 		] ) );
 	}
 
