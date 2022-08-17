@@ -6,7 +6,6 @@ namespace Underpin\WordPress\Integrations\Meta;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Interfaces\Feature_Extension;
 use Underpin\WordPress\Enums\Meta_Types;
-use Underpin\WordPress\Enums\Types;
 use Underpin\WordPress\Interfaces\Loader_Item;
 use UnitEnum;
 
@@ -19,7 +18,6 @@ abstract class Item implements Loader_Item, Feature_Extension {
 		protected string           $id,
 		protected mixed            $default_value,
 		Meta_Types|UnitEnum|string $object_type,
-		protected Types            $type,
 		protected ?string          $description = null,
 		protected ?bool            $single = null,
 		protected ?bool            $show_in_rest = null,
@@ -44,10 +42,6 @@ abstract class Item implements Loader_Item, Feature_Extension {
 
 	public function get_single(): bool {
 		return $this->single;
-	}
-
-	public function get_type(): string {
-		return $this->type->name;
 	}
 
 	public function get_default_value(): string {
