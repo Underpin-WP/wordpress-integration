@@ -7,6 +7,7 @@ use Exception;
 use Underpin\Exceptions\Item_Not_Found;
 use Underpin\Exceptions\Middleware_Exception;
 use Underpin\Exceptions\Operation_Failed;
+use Underpin\Helpers\String_Helper;
 use Underpin\Interfaces\Feature_Extension;
 use Underpin\Interfaces\Identifiable;
 use Underpin\Interfaces\Loader_Item;
@@ -22,9 +23,21 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 	public function __construct( protected Controller $controller, protected string $namespace ) {
 	}
 
+	protected function get_route() {
+		$pieces = explode( '/', $this->controller->route );
+		$result = [];
+		foreach ( $pieces as $piece ) {
+			if ( String_Helper::starts_with( $piece, '$' ) ) {
+				$result[] = '(?P<' . String_Helper::after( $piece, '$' ) . '>[a-zA-Z0-9-_]+)';
+			}
+		}
+
+		return implode( '/', $result );
+	}
+
 	public function register_routes() {
 		foreach ( $this->controller->to_array() as $method => $action ) {
-			register_rest_route( $this->namespace, $this->controller->route, [
+			register_rest_route( $this->namespace, $this->get_route(), [
 				'methods'             => [ $method ],
 				'callback'            => [ $this, 'get_response' ],
 				'permission_callback' => [ $this, 'middleware' ],
