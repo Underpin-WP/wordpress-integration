@@ -61,8 +61,7 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 			$request = ( new WP_Rest_Request_To_Request_Adapter( $request ) )->to_request();
 
 			try {
-				/* @var $action Rest_Action */
-				$action = new $this->controller->get_action( $request->get_method() );
+				$action = $this->controller->get_action( $request->get_method() );
 			} catch ( Exception $exception ) {
 				throw new Item_Not_Found( 'Could not get rest action for type ' . $type . '.', 'error', $exception );
 			}
