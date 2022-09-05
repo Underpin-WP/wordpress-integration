@@ -10,6 +10,7 @@ use Underpin\Exceptions\Operation_Failed;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Interfaces\Feature_Extension;
 use Underpin\Interfaces\Identifiable;
+use Underpin\Interfaces\Loader_Item;
 use Underpin\Registries\Controller;
 use Underpin\Registries\Rest_Action;
 use Underpin\WordPress\Adapters\WP_Rest_Request_To_Request_Adapter;
@@ -17,7 +18,7 @@ use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
 
-class Item implements Feature_Extension, Identifiable {
+class Item implements Feature_Extension, Identifiable, Loader_Item {
 
 	public function __construct( protected Controller $controller ) {
 	}

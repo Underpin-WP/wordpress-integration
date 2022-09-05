@@ -40,7 +40,7 @@ abstract class Item implements Loader_Item, Feature_Extension {
 		public readonly ?Closure         $sanitize_callback = null,
 		?string                    $key = null,
 	) {
-		$this->object_type = is_string( $object_type ) ? $object_type : $object_type->value;
+		$this->object_type = is_string( $object_type ) ? $object_type : $object_type->name;
 		if ( ! $key ) $this->key = $id;
 	}
 
