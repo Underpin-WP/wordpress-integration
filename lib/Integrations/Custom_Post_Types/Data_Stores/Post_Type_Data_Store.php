@@ -9,7 +9,7 @@ use Underpin\Interfaces\Can_Create;
 use Underpin\Interfaces\Can_Delete;
 use Underpin\Interfaces\Can_Update;
 use Underpin\Interfaces\Model;
-use Underpin\Loaders\Logger;
+use Underpin\Registries\Logger;
 use Underpin\WordPress\Abstracts\Model_To_WP_Post_Adapter;
 use Underpin\WordPress\Exceptions\Post_Delete_Canceled;
 use Underpin\WordPress\Exceptions\Post_Delete_Failed;

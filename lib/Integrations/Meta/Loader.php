@@ -6,7 +6,7 @@ namespace Underpin\WordPress\Integrations\Meta;
 use Underpin\Exceptions\Invalid_Registry_Item;
 use Underpin\Exceptions\Unknown_Registry_Item;
 
-abstract class Loader extends \Underpin\WordPress\Abstracts\Loader {
+abstract class Loader extends \Underpin\Abstracts\Registries\Loader {
 
 	/**
 	 * @throws Unknown_Registry_Item

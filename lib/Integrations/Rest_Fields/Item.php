@@ -6,7 +6,7 @@ namespace Underpin\WordPress\Integrations\Rest_Fields;
 use Closure;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Interfaces\Feature_Extension;
-use Underpin\WordPress\Interfaces\Loader_Item;
+use Underpin\Interfaces\Loader_Item;
 
 class Item implements Loader_Item, Feature_Extension {
 

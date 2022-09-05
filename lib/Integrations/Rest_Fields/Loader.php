@@ -6,7 +6,7 @@ namespace Underpin\WordPress\Integrations\Rest_Fields;
 use Underpin\Exceptions\Invalid_Registry_Item;
 use Underpin\Exceptions\Unknown_Registry_Item;
 
-class Loader extends \Underpin\WordPress\Abstracts\Loader {
+class Loader extends \Underpin\Abstracts\Registries\Loader {
 
 	/**
 	 * @throws Unknown_Registry_Item
@@ -23,6 +23,7 @@ class Loader extends \Underpin\WordPress\Abstracts\Loader {
 	 * @throws Unknown_Registry_Item
 	 */
 	public function get( string $key ): Item {
-		return parent::get($key);
+		return parent::get( $key );
 	}
+
 }

@@ -5,9 +5,9 @@ namespace Underpin\WordPress\Integrations\Custom_Post_Types;
 use Underpin\Factories\Log_Item;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Interfaces\Feature_Extension;
-use Underpin\Loaders\Logger;
+use Underpin\Registries\Logger;
 use Underpin\WordPress\Exceptions\WP_Error;
-use Underpin\WordPress\Interfaces\Loader_Item;
+use Underpin\Interfaces\Loader_Item;
 
 class Item implements Feature_Extension, Loader_Item {
 

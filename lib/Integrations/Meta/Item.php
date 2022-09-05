@@ -7,8 +7,8 @@ use Closure;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Interfaces\Feature_Extension;
 use Underpin\WordPress\Enums\Meta_Types;
-use Underpin\WordPress\Enums\Types;
-use Underpin\WordPress\Interfaces\Loader_Item;
+use Underpin\Enums\Types;
+use Underpin\Interfaces\Loader_Item;
 use UnitEnum;
 
 abstract class Item implements Loader_Item, Feature_Extension {
@@ -40,7 +40,7 @@ abstract class Item implements Loader_Item, Feature_Extension {
 		public readonly ?Closure         $sanitize_callback = null,
 		?string                    $key = null,
 	) {
-		$this->object_type = is_string( $object_type ) ? $object_type : $object_type->name;
+		$this->object_type = is_string( $object_type ) ? $object_type : $object_type->value;
 		if ( ! $key ) $this->key = $id;
 	}
 
