@@ -28,11 +28,13 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 		$result = [];
 		foreach ( $pieces as $piece ) {
 			if ( String_Helper::starts_with( $piece, '$' ) ) {
-				$result[] = '(?P<' . String_Helper::after( $piece, '$' ) . '>[a-zA-Z0-9-_]+)';
+				$result[] = '(?P<' . String_Helper::after( $piece, '$' ) . '>[\w-]+)';
+			} else {
+				$result[] = $piece;
 			}
 		}
 
-		return implode( '/', $result );
+		return String_Helper::prepend( implode( '/', $result ), '/' );
 	}
 
 	public function register_routes() {
