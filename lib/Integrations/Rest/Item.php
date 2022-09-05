@@ -19,12 +19,12 @@ use WP_REST_Response;
 
 class Item implements Feature_Extension, Identifiable, Loader_Item {
 
-	public function __construct( protected Controller $controller ) {
+	public function __construct( protected Controller $controller, protected string $namespace ) {
 	}
 
 	public function register_routes() {
 		foreach ( $this->controller->to_array() as $method => $action ) {
-			register_rest_route( 'beer', $this->controller->route, [
+			register_rest_route( $this->namespace, $this->controller->route, [
 				'methods'             => [ $method ],
 				'callback'            => [ $this, 'get_response' ],
 				'permission_callback' => [ $this, 'middleware' ],

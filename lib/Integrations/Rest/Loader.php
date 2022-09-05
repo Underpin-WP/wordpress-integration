@@ -7,11 +7,11 @@ use Underpin\Registries\Rest_API_Loader;
 
 class Loader extends \Underpin\Abstracts\Registries\Loader {
 
-	public function __construct( Rest_API_Loader ...$loaders ) {
+	public function __construct( $namespace, Rest_API_Loader ...$loaders ) {
 		$items = [];
 		foreach ( $loaders as $loader ) {
 			foreach ( $loader->to_array() as $controller ) {
-				$items[] = new Item( $controller );
+				$items[] = new Item( $controller, $namespace );
 			}
 		}
 
