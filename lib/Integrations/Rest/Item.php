@@ -77,7 +77,7 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 	 *
 	 * @return WP_REST_Response
 	 */
-	protected function get_response( WP_REST_Request $request ): WP_REST_Response {
+	public function get_response( WP_REST_Request $request ): WP_REST_Response {
 		try {
 			$action = $this->get_action( $request );
 			$action->do_actions();
@@ -96,7 +96,7 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 	 *
 	 * @return WP_Error|bool
 	 */
-	protected function middleware( WP_REST_Request $request ): WP_Error|bool {
+	public function middleware( WP_REST_Request $request ): WP_Error|bool {
 		try {
 			$this->get_action( $request )->do_middleware_actions();
 		} catch ( Middleware_Exception $exception ) {
