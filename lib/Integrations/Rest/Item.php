@@ -4,6 +4,7 @@ namespace Underpin\WordPress\Integrations\Rest;
 
 
 use Exception;
+use Underpin\Enums\Rest;
 use Underpin\Exceptions\Item_Not_Found;
 use Underpin\Exceptions\Middleware_Exception;
 use Underpin\Exceptions\Operation_Failed;
@@ -58,10 +59,9 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 	 */
 	protected function get_action( WP_REST_Request $request ): Rest_Action {
 		try {
-			$request = ( new WP_Rest_Request_To_Request_Adapter( $request ) )->to_request();
-
 			try {
-				$action = $this->controller->get_action( $request->get_method() );
+				$action = $this->controller->get_action( Rest::from( strtoupper( $request->get_method() ) ) );
+				$converted = ( new WP_Rest_Request_To_Request_Adapter( $request, $action->get_signature() ) )->to_request();
 			} catch ( Exception $exception ) {
 				throw new Item_Not_Found( 'Could not get rest action for type ' . $type . '.', 'error', $exception );
 			}
@@ -69,7 +69,7 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 			throw new Middleware_Exception( 'Something went wrong while getting the request action.', 500, previous: $e );
 		}
 
-		return $action->set_request( $request );
+		return $action->set_request( $converted );
 	}
 
 	/**
