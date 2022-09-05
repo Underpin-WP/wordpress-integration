@@ -11,7 +11,7 @@ class Loader extends \Underpin\Abstracts\Registries\Loader {
 		$items = [];
 		foreach ( $loaders as $loader ) {
 			foreach ( $loader->to_array() as $controller ) {
-				$items[] = new Item( new $controller );
+				$items[] = new Item( $controller );
 			}
 		}
 

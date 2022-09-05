@@ -26,7 +26,7 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 	public function do_actions(): void {
 		register_rest_route( '', $this->controller->route, Array_Helper::each(
 			$this->controller->to_array(),
-			fn ( Rest_Action $action, string $method ) => [
+			fn ( string $action, string $method ) => [
 				'methods'             => [ $method ],
 				'callback'            => [ $this, 'get_response' ],
 				'permission_callback' => [ $this, 'middleware' ],
