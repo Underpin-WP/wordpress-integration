@@ -8,6 +8,7 @@ use Underpin\Exceptions\Item_Not_Found;
 use Underpin\Exceptions\Middleware_Exception;
 use Underpin\Exceptions\Operation_Failed;
 use Underpin\Helpers\Array_Helper;
+use Underpin\Helpers\Processors\Array_Processor;
 use Underpin\Interfaces\Feature_Extension;
 use Underpin\Interfaces\Identifiable;
 use Underpin\Interfaces\Loader_Item;
@@ -23,15 +24,18 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 	public function __construct( protected Controller $controller ) {
 	}
 
-	public function do_actions(): void {
-		register_rest_route( '', $this->controller->route, Array_Helper::each(
-			$this->controller->to_array(),
-			fn ( string $action, string $method ) => [
+	public function register_routes() {
+		foreach ( $this->controller->to_array() as $method => $action ) {
+			register_rest_route( 'beer', $this->controller->route, [
 				'methods'             => [ $method ],
 				'callback'            => [ $this, 'get_response' ],
 				'permission_callback' => [ $this, 'middleware' ],
-			] )
-		);
+			] );
+		}
+	}
+
+	public function do_actions(): void {
+		add_action( 'rest_api_init', [ $this, 'register_routes' ] );
 	}
 
 	/**
