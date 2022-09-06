@@ -16,7 +16,11 @@ use Underpin\Factories\Request;
 
 class WP_Rest_Request_To_Request_Adapter implements Can_Convert_To_Request {
 
-	public function __construct( protected WP_REST_Request $original ) {
+	/**
+	 * @param WP_REST_Request $original
+	 * @param Url_Param[]     $signature
+	 */
+	public function __construct( protected WP_REST_Request $original, protected array $signature ) {
 	}
 
 	/**
@@ -27,13 +31,15 @@ class WP_Rest_Request_To_Request_Adapter implements Can_Convert_To_Request {
 	 *
 	 * @return array
 	 */
-	protected function hydrate_params( array $params, array $param_signature = [] ): array {
+	protected function hydrate_params( array $params ): array {
 		$result = [];
-		foreach ( $params as $param ) {
-			if ( isset( $param_signature[ $param ] ) ) {
-				$result[] = new URL_Param( $param, $param_signature[ $param ] );
+		foreach ( $params as $key => $param ) {
+			if ( isset( $this->signature[ $key ] ) ) {
+				$item = $this->signature[ $key ];
+				settype($param, $item->get_type()->value);
+				$result[] = $item->set_value($param);
 			} else {
-				$result[] = new Url_Param( $param, Types::from( gettype( $param ) ) );
+				$result[] = (new Url_Param( $param, Types::from( gettype( $param ) ) ))->set_value($parama);
 			}
 		}
 

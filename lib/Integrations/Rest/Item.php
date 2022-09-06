@@ -58,18 +58,22 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 	 * @throws Middleware_Exception
 	 */
 	protected function get_action( WP_REST_Request $request ): Rest_Action {
-		try {
+		if ( ! isset( $this->action ) ) {
 			try {
-				$action = $this->controller->get_action( Rest::from( strtoupper( $request->get_method() ) ) );
-				$converted = ( new WP_Rest_Request_To_Request_Adapter( $request, $action->get_signature() ) )->to_request();
-			} catch ( Exception $exception ) {
-				throw new Item_Not_Found( 'Could not get rest action for type ' . $type . '.', 'error', $exception );
+				try {
+					$type = Rest::from( strtoupper( $request->get_method() ) );
+					$action    = $this->controller->get_action( $type );
+					$converted = ( new WP_Rest_Request_To_Request_Adapter( $request, $action->get_signature() ) )->to_request();
+				} catch ( Exception $exception ) {
+					throw new Item_Not_Found( 'Could not get rest action for type ' . $type->value . '.', 'error', $exception );
+				}
+			} catch ( Item_Not_Found|Operation_Failed $e ) {
+				throw new Middleware_Exception( 'Something went wrong while getting the request action.', 500, previous: $e );
 			}
-		} catch ( Item_Not_Found|Operation_Failed $e ) {
-			throw new Middleware_Exception( 'Something went wrong while getting the request action.', 500, previous: $e );
+			$this->action = $action->set_request( $converted );
 		}
 
-		return $action->set_request( $converted );
+		return $this->action;
 	}
 
 	/**
