@@ -39,7 +39,7 @@ class WP_Rest_Request_To_Request_Adapter implements Can_Convert_To_Request {
 				settype($param, $item->get_type()->value);
 				$result[] = $item->set_value($param);
 			} else {
-				$result[] = (new Url_Param( $param, Types::from( gettype( $param ) ) ))->set_value($parama);
+				$result[] = (new Url_Param( $param, Types::from( gettype( $param ) ) ))->set_value($param);
 			}
 		}
 
@@ -55,7 +55,7 @@ class WP_Rest_Request_To_Request_Adapter implements Can_Convert_To_Request {
 	protected function get_url(): Url {
 		$url = Url::from( get_rest_url() )->set_path( $this->original->get_route() );
 
-		foreach ( $this->hydrate_params( $this->original->get_url_params() ) as $param ) {
+		foreach ( $this->hydrate_params( $this->original->get_params() ) as $param ) {
 			$url->add_param( $param );
 		}
 
