@@ -8,6 +8,9 @@ use Underpin\Enums\Rest;
 use Underpin\Exceptions\Item_Not_Found;
 use Underpin\Exceptions\Middleware_Exception;
 use Underpin\Exceptions\Operation_Failed;
+use Underpin\Factories\Registry_Items\Param;
+use Underpin\Helpers\Array_Helper;
+use Underpin\Helpers\Processors\Array_Processor;
 use Underpin\Helpers\String_Helper;
 use Underpin\Interfaces\Feature_Extension;
 use Underpin\Interfaces\Identifiable;
@@ -20,6 +23,8 @@ use WP_REST_Request;
 use WP_REST_Response;
 
 class Item implements Feature_Extension, Identifiable, Loader_Item {
+
+	protected array $schemas = [];
 
 	public function __construct( protected Controller $controller, protected string $namespace ) {
 	}
@@ -38,14 +43,45 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 		return String_Helper::prepend( implode( '/', $result ), '/' );
 	}
 
-	public function register_routes() {
-		foreach ( $this->controller->to_array() as $method => $action ) {
-			register_rest_route( $this->namespace, $this->get_route(), [
-				'methods'             => [ $method ],
+	protected function get_registration_args(): array {
+		if ( ! isset( $this->registration_args ) ) {
+			$this->registration_args = ( new Array_Processor( $this->controller->to_array() ) )->each( fn ( $value, $key ) => [
+				'methods'             => $key,
 				'callback'            => [ $this, 'get_response' ],
 				'permission_callback' => [ $this, 'middleware' ],
-			] );
+			] )->to_array();
 		}
+
+		return $this->registration_args;
+	}
+
+	public function register_routes() {
+		register_rest_route( $this->namespace, $this->get_route(), [
+			$this->get_registration_args(),
+			'schema' => [ $this, 'get_schema' ],
+		] );
+	}
+
+	/**
+	 * @throws Middleware_Exception
+	 */
+	public function get_schema( WP_REST_Request $request ) {
+		$action = $this->get_action( $request );
+		$method = $action->get_request()->get_method()->value;
+
+		if ( ! isset( $this->schemas[ $method ] ) ) {
+			$this->schemas[ $method ] = [
+				'$schema'    => 'http://json-schema.org/draft-04/schema#',
+				'title'      => $this->controller->name,
+				'type'       => 'object',
+				'properties' => Array_Helper::each( $action->get_signature(), fn ( Param $param, string $key ) => [
+					'description' => $param->description,
+					'type'        => $param->get_type()->value,
+				] ),
+			];
+		}
+
+		return $this->schemas[ $method ];
 	}
 
 	public function do_actions(): void {
@@ -61,7 +97,7 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 		if ( ! isset( $this->action ) ) {
 			try {
 				try {
-					$type = Rest::from( strtoupper( $request->get_method() ) );
+					$type      = Rest::from( strtoupper( $request->get_method() ) );
 					$action    = $this->controller->get_action( $type );
 					$converted = ( new WP_Rest_Request_To_Request_Adapter( $request, $action->get_signature() ) )->to_request();
 				} catch ( Exception $exception ) {

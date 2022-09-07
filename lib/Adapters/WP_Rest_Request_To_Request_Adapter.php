@@ -7,7 +7,7 @@ use Underpin\Enums\Types;
 use Underpin\Exceptions\Operation_Failed;
 use Underpin\Exceptions\Url_Exception;
 use Underpin\Factories\Header;
-use Underpin\Factories\Registry_Items\Url_Param;
+use Underpin\Factories\Registry_Items\Param;
 use Underpin\Factories\Url;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Interfaces\Can_Convert_To_Request;
@@ -18,7 +18,7 @@ class WP_Rest_Request_To_Request_Adapter implements Can_Convert_To_Request {
 
 	/**
 	 * @param WP_REST_Request $original
-	 * @param Url_Param[]     $signature
+	 * @param Param[]     $signature
 	 */
 	public function __construct( protected WP_REST_Request $original, protected array $signature ) {
 	}
@@ -39,7 +39,7 @@ class WP_Rest_Request_To_Request_Adapter implements Can_Convert_To_Request {
 				settype($param, $item->get_type()->value);
 				$result[] = $item->set_value($param);
 			} else {
-				$result[] = (new Url_Param( $param, Types::from( gettype( $param ) ) ))->set_value($param);
+				$result[] = (new Param( $param, Types::from( gettype( $param ) ) ))->set_value($param);
 			}
 		}
 
