@@ -11,6 +11,7 @@ use Underpin\Factories\Registry_Items\Param;
 use Underpin\Factories\Url;
 use Underpin\Helpers\Array_Helper;
 use Underpin\Interfaces\Can_Convert_To_Request;
+use Underpin\Interfaces\Identifiable;
 use WP_REST_Request;
 use Underpin\Factories\Request;
 
@@ -18,7 +19,7 @@ class WP_Rest_Request_To_Request_Adapter implements Can_Convert_To_Request {
 
 	/**
 	 * @param WP_REST_Request $original
-	 * @param Param[]     $signature
+	 * @param Param[]         $signature
 	 */
 	public function __construct( protected WP_REST_Request $original, protected array $signature ) {
 	}
@@ -36,10 +37,10 @@ class WP_Rest_Request_To_Request_Adapter implements Can_Convert_To_Request {
 		foreach ( $params as $key => $param ) {
 			if ( isset( $this->signature[ $key ] ) ) {
 				$item = $this->signature[ $key ];
-				settype($param, $item->get_type()->value);
-				$result[] = $item->set_value($param);
+				settype( $param, $item->get_type()->value );
+				$result[] = $item->set_value( $param );
 			} else {
-				$result[] = (new Param( $param, Types::from( gettype( $param ) ) ))->set_value($param);
+				$result[] = ( new Param( $param, Types::from( gettype( $param ) ) ) )->set_value( $param );
 			}
 		}
 
@@ -86,6 +87,16 @@ class WP_Rest_Request_To_Request_Adapter implements Can_Convert_To_Request {
 		return $ip;
 	}
 
+	protected function get_identity(): Identifiable {
+		return new class implements Identifiable {
+
+			public function get_id(): int {
+				return get_current_user_id();
+			}
+
+		};
+	}
+
 	/**
 	 * @throws Operation_Failed
 	 */
@@ -95,7 +106,8 @@ class WP_Rest_Request_To_Request_Adapter implements Can_Convert_To_Request {
 				->set_url( $this->get_url() )
 				->set_body( $this->original->get_body() )
 				->set_ip( $this->get_ip() )
-				->set_method( Rest::from( strtoupper( $this->original->get_method() ) ) );
+				->set_method( Rest::from( strtoupper( $this->original->get_method() ) ) )
+				->set_identity( $this->get_identity() );
 		} catch ( Url_Exception $e ) {
 			throw new Operation_Failed( 'Could not create URL.', previous: $e );
 		}

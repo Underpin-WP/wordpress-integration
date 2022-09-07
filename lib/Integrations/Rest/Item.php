@@ -108,6 +108,7 @@ class Item implements Feature_Extension, Identifiable, Loader_Item {
 	 * @return WP_Error|bool
 	 */
 	public function middleware( WP_REST_Request $request ): WP_Error|bool {
+
 		try {
 			$this->get_action( $request )->do_middleware_actions();
 		} catch ( Middleware_Exception $exception ) {
