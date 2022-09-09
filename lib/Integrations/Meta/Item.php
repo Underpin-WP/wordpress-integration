@@ -69,6 +69,7 @@ abstract class Item implements Loader_Item, Feature_Extension {
 			'description'       => $this->description,
 			'single'            => $this->single,
 			'default'           => $this->default_value,
+			//TODO: UPDATE THIS TO USE MIDDLEWARE LIKE REST AND HEAD TAGS
 			'sanitize_callback' => is_callable( $this->sanitize_callback ) ? [ $this, 'sanitize_callback' ] : null,
 			'auth_callback'     => [ $this, 'has_permission' ],
 			'show_in_rest'      => $this->show_in_rest,
