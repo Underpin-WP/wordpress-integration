@@ -1,6 +1,6 @@
 <?php
 
-namespace Underpin\WordPress\Integrations\Meta;
+namespace Underpin\WordPress\Factories;
 
 
 use Underpin\Interfaces\Identifiable;
