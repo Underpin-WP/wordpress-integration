@@ -5,7 +5,7 @@ use Underpin\Factories\Header;
 use Underpin\Factories\Request;
 use Underpin\Factories\Url;
 use Underpin\Interfaces\Feature_Extension;
-use Underpin\WordPress\Integrations\Meta\WP_User_Identity;
+use Underpin\WordPress\Factories\WP_User_Identity;
 
 class Provider implements Feature_Extension {
 
