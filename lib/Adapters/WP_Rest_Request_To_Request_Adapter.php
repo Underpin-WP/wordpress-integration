@@ -64,15 +64,19 @@ class WP_Rest_Request_To_Request_Adapter implements Can_Convert_To_Request {
 	}
 
 	/**
-	 * Gets the header s from the request.
+	 * Gets the headers from the request.
 	 *
 	 * @return array
 	 */
 	protected function get_headers(): array {
-		return Array_Helper::each(
-			$this->original->get_headers(),
-			fn ( mixed $value, string $key ) => ( new Header( $key ) )->set_value( $value )
-		);
+		$headers = [];
+		foreach($this->original->get_headers() as $key => $values){
+			foreach($values as $value){
+				$headers[] = new Header($key, $value);
+			}
+		}
+
+		return $headers;
 	}
 
 	protected function get_ip(): string {
@@ -105,7 +109,6 @@ class WP_Rest_Request_To_Request_Adapter implements Can_Convert_To_Request {
 			$request = ( new Request )
 				->set_url( $this->get_url() )
 				->set_body( $this->original->get_body() )
-				->set_ip( $this->get_ip() )
 				->set_method( Rest::from( strtoupper( $this->original->get_method() ) ) )
 				->set_identity( $this->get_identity() );
 		} catch ( Url_Exception $e ) {

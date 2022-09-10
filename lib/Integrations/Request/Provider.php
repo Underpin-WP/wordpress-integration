@@ -1,6 +1,9 @@
 <?php
+
 namespace Underpin\WordPress\Integrations\Request;
 
+use Underpin\Exceptions\Invalid_Registry_Item;
+use Underpin\Exceptions\Operation_Failed;
 use Underpin\Factories\Header;
 use Underpin\Factories\Request;
 use Underpin\Factories\Url;
@@ -24,7 +27,11 @@ class Provider implements Feature_Extension {
 			global $wp;
 
 			foreach ( headers_list() as $header ) {
-				$this->request->set_header( Header::from_string( $header ) );
+				try {
+					$this->request->set_header( Header::from_string( $header ) );
+				} catch ( Operation_Failed $item ) {
+					// Invalid items are simply duplicate header items that are identical. Carry on!
+				}
 			}
 
 			$this->request->set_url( Url::from( home_url() )->set_path( add_query_arg( [], $wp->request ) ) );
