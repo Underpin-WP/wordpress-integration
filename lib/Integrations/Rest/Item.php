@@ -12,7 +12,7 @@ use Underpin\Helpers\String_Helper;
 use Underpin\Interfaces\Feature_Extension;
 use Underpin\Interfaces\Identifiable;
 use Underpin\Interfaces\Loader_Item;
-use Underpin\Registries\Controller;
+use Underpin\Factories\Controller;
 use Underpin\Abstracts\Rest_Action;
 use Underpin\WordPress\Adapters\WP_Rest_Request_To_Request_Adapter;
 use ValueError;
