@@ -1,5 +1,8 @@
 <?php
 
+namespace Underpin\WordPress\Integrations\Head;
+
+
 use Underpin\Factories\Request;
 use Underpin\Interfaces\Feature_Extension;
 use Underpin\Registries\Head_Tag_Collection;
