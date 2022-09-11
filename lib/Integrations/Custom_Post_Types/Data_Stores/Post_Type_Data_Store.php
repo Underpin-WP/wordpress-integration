@@ -25,15 +25,24 @@ class Post_Type_Data_Store implements Can_Create, Can_Update, Can_Delete {
 	}
 
 	public function create( Model $model ): int|string {
-		$id = $this->update( $model );
-		$model->set_id( $id );
+		try {
+			$response = wp_insert_post( ( new $this->adapter( $model ) )->to_array(), true );
 
-		return $id;
+			if ( is_wp_error( $response ) ) {
+				throw new Operation_Failed( $response->get_error_message() );
+			}
+
+			$model->set_id( $response );
+
+			return $response;
+		} catch ( Exception $e ) {
+			throw new Operation_Failed( $e->getMessage(), $e->getCode(), 'error', $e );
+		}
 	}
 
 	public function update( Model $model ): int|string {
 		try {
-			$response = wp_update_post( ( new $this->adapter( $model ) )->to_wp_post()->to_array(), true );
+			$response = wp_update_post( ( new $this->adapter( $model ) )->to_array(), true );
 
 			if ( is_wp_error( $response ) ) {
 				throw new Operation_Failed( $response->get_error_message() );
