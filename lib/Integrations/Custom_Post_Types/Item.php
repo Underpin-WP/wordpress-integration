@@ -25,36 +25,38 @@ class Item implements Feature_Extension, Loader_Item {
 	 *
 	 * @see https://developer.wordpress.org/reference/functions/register_post_type/ for description of arguments
 	 *
-	 * @param string      $id The post type ID. Maps to register_post_type's "$post_type" argument.
-	 * @param string|null $label
-	 * @param array|null  $labels
-	 * @param string|null $description
-	 * @param bool|null   $public
-	 * @param bool|null   $hierarchical
-	 * @param bool|null   $exclude_from_search
-	 * @param bool|null   $publicly_queryable
-	 * @param bool|null   $show_ui
-	 * @param bool|null   $show_in_menu
-	 * @param bool|null   $show_in_nav_menus
-	 * @param bool|null   $show_in_admin_bar
-	 * @param bool|null   $show_in_rest
-	 * @param string|null $rest_base
-	 * @param string|null $rest_namespace
-	 * @param string|null $rest_controller_class
-	 * @param int|null    $menu_position
-	 * @param string|null $menu_icon
-	 * @param array|null  $capability_type
-	 * @param string|null $capabilities
-	 * @param bool|null   $has_meta_cap
-	 * @param array|null  $supports
-	 * @param array|null  $taxonomies
-	 * @param bool|null   $has_archive
-	 * @param bool|array| $has_rewrite
-	 * @param string|null $query_var
-	 * @param bool|null   $can_export
-	 * @param bool|null   $delete_with_user
-	 * @param array|null  $template
-	 * @param bool|null   $template_lock
+	 * @param string          $id The post type ID. Maps to register_post_type's "$post_type" argument.
+	 * @param string|null     $label
+	 * @param array|null      $labels
+	 * @param string|null     $description
+	 * @param bool|null       $public
+	 * @param bool|null       $hierarchical
+	 * @param bool|null       $exclude_from_search
+	 * @param bool|null       $publicly_queryable
+	 * @param bool|null       $show_ui
+	 * @param bool|null       $show_in_menu
+	 * @param bool|null       $show_in_nav_menus
+	 * @param bool|null       $show_in_admin_bar
+	 * @param bool|null       $show_in_rest
+	 * @param string|null     $rest_base
+	 * @param string|null     $rest_namespace
+	 * @param string|null     $rest_controller_class
+	 * @param int|null        $menu_position
+	 * @param string|null     $menu_icon
+	 * @param array|null      $capability_type
+	 * @param string|null     $capabilities
+	 * @param bool|null       $has_meta_cap
+	 * @param array|null      $supports
+	 * @param array|null      $taxonomies
+	 * @param bool|null       $has_archive
+	 * @param bool|array|     $has_rewrite
+	 * @param bool|array|null $rewrite
+	 * @param bool|null       $map_meta_cap
+	 * @param string|null     $query_var
+	 * @param bool|null       $can_export
+	 * @param bool|null       $delete_with_user
+	 * @param array|null      $template
+	 * @param bool|null       $template_lock
 	 */
 	public function __construct(
 		public readonly string          $id,
@@ -82,6 +84,8 @@ class Item implements Feature_Extension, Loader_Item {
 		public readonly ?array          $taxonomies = null,
 		public readonly ?bool           $has_archive = null,
 		public readonly null|bool|array $has_rewrite = null,
+		public readonly bool|array|null $rewrite = null,
+		public readonly ?bool           $map_meta_cap = null,
 		public readonly ?string         $query_var = null,
 		public readonly ?bool           $can_export = null,
 		public readonly ?bool           $delete_with_user = null,
@@ -128,6 +132,8 @@ class Item implements Feature_Extension, Loader_Item {
 			'capability_type'       => $this->capability_type,
 			'capabilities'          => $this->capabilities,
 			'has_meta_cap'          => $this->has_meta_cap,
+			'map_meta_cap'          => $this->map_meta_cap,
+			'rewrite'               => $this->rewrite,
 			'supports'              => $this->supports,
 			'taxonomies'            => $this->taxonomies,
 			'has_archive'           => $this->has_archive,
