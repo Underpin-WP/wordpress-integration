@@ -31,6 +31,7 @@ class Item implements Feature_Extension, Loader_Item {
 		public readonly string           $id,
 		public readonly array            $object_types,
 		public readonly ?array           $labels = null,
+		public readonly ?string          $label = null,
 		public readonly ?string          $description = null,
 		public readonly ?bool            $public = null,
 		public readonly ?bool            $publicly_queryable = null,
