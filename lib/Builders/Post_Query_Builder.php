@@ -131,7 +131,7 @@ class Post_Query_Builder extends Builder implements Can_Convert_To_Instance {
 	}
 
 	public function set_post_status( Post_Statuses|UnitEnum ...$statuses ): static {
-		return $this->set_array( 'post_status', Array_Helper::map( $statuses, fn ( UnitEnum $type ) => $type->name ) );
+		return $this->set_array( 'post_status', Array_Helper::map( $statuses, fn ( Post_Statuses|UnitEnum $type ) => $type->name ) );
 	}
 
 	public function set_posts_per_page( int $per_page ): static {
@@ -229,6 +229,12 @@ class Post_Query_Builder extends Builder implements Can_Convert_To_Instance {
 
 	public function set_meta_query( Meta_Query_Builder $builder ): static {
 		$this->args['meta_query'] = $builder->to_array();
+
+		return $this;
+	}
+
+	public function set_tax_query( Tax_Query_Builder $builder ): static {
+		$this->args['tax_query'] = $builder->to_array();
 
 		return $this;
 	}
