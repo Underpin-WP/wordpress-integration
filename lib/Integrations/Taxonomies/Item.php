@@ -81,7 +81,25 @@ class Item implements Feature_Extension, Loader_Item {
 	 * @throws WP_Error
 	 */
 	public function register() {
-		$registered = register_taxonomy( $this->get_id(), $this->object_types, Array_Helper::where_not_null( [
+		$registered = register_taxonomy( $this->get_id(), $this->object_types, $this->get_args() );
+
+		if ( is_wp_error( $registered ) ) {
+			throw new WP_Error( $registered );
+		} else {
+			Logger::log(
+				'notice',
+				new Log_Item(
+					code   : 'custom_post_type_registered',
+					message: 'A custom post type has been registered.',
+					data   : $this->assoc_args
+				)
+			);
+		}
+	}
+
+	protected function get_args(): array
+	{
+		return Array_Helper::where_not_null([
 			'labels'                => $this->labels,
 			'description'           => $this->description,
 			'public'                => $this->public,
@@ -103,22 +121,9 @@ class Item implements Feature_Extension, Loader_Item {
 			'rest_controller_class' => $this->rest_controller_class,
 			'default_term'          => $this->default_term,
 			'args'                  => $this->args,
-			'meta_box_cb'           => [ $this, 'register_meta_box' ],
-			'update_count_callback' => [ $this, 'update_count' ],
-		] ) );
-
-		if ( is_wp_error( $registered ) ) {
-			throw new WP_Error( $registered );
-		} else {
-			Logger::log(
-				'notice',
-				new Log_Item(
-					code   : 'custom_post_type_registered',
-					message: 'A custom post type has been registered.',
-					data   : $this->assoc_args
-				)
-			);
-		}
+			'meta_box_cb'           => [$this, 'register_meta_box'],
+			'update_count_callback' => [$this, 'update_count'],
+		]);
 	}
 
 	public function get_id(): string {
