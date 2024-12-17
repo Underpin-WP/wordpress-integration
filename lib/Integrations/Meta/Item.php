@@ -65,7 +65,7 @@ abstract class Item implements Loader_Item, Feature_Extension {
 	public function register_meta() {
 		register_meta( $this->object_type, $this->key, Array_Helper::where_not_null( [
 			'object_subtype'    => $this->subtype,
-			'type'              => $this->type,
+			'type'              => $this->type->value,
 			'description'       => $this->description,
 			'single'            => $this->single,
 			'default'           => $this->default_value,
